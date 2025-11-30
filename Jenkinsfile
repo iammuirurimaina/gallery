@@ -26,6 +26,21 @@ pipeline {
             }
         }
 
+        stage('Test') {
+                //run tests and send email incase 1 fails
+            steps {
+                echo 'Running tests...'
+                sh 'npm test'
+            }
+            post {
+                failure {
+                    echo 'Tests failed! Sending email notification...'
+                    mail to: 'ian.maina@student.moringaschool.com',
+                         subject: "Test Failed"
+                }
+            }
+        }
+
         stage('Deploy to Render') {
             steps {
                 echo 'Deploying to Render...'
