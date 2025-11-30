@@ -52,9 +52,10 @@ pipeline {
             }
             post {
                 success {
-                    slackSend channel: '#ian_ip1',
-                              color: 'good',
-                              message: "Deployment Successful! Build ID: ${env.BUILD_ID}\nLive URL: https://gallery-ian.onrender.com/"
+                    slackSend(
+                        color: 'good',
+                        message: "Deployment Successful! Build ID: ${env.BUILD_ID}\nLive URL: https://gallery-ian.onrender.com/"
+                    )
                 }
             }
         }
