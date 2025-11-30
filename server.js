@@ -10,6 +10,9 @@ const config = require('./_config');
 let index = require('./routes/index');
 let image = require('./routes/image');
 
+// Initializing the app
+const app = express();
+
 // connecting to MongoDB Atlas
 const mongodb_url = config.mongoURI.development;
 mongoose.connect(mongodb_url, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -25,8 +28,7 @@ db.once('open', () => {
     console.log('Database connected successfully')
 })
 
-// Initializing the app
-const app = express();
+
 
 
 // View Engine
@@ -49,3 +51,6 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server is listening at http://localhost:${PORT}`)
 });
+
+
+module.exports = app;
