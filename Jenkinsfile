@@ -61,6 +61,7 @@ pipeline {
                 failure {
                     // Optional: Add a failure notification if needed
                     slackSend(
+                        channel: '#ian_ip1',
                         color: 'danger',
                         message: "Deployment Failed! Build ID: ${env.BUILD_ID}"
                     )
