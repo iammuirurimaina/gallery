@@ -1,15 +1,15 @@
-# Darkroom Gallery App 📸
+# Darkroom Gallery App 
 
 Hey! Welcome to my **Darkroom Gallery** project. This is a simple Node.js application where you can upload and view images. It's built with Express, MongoDB, and EJS for the frontend. It's Main goal is to test Pipelines.
 
 
-## 🚀 Features
+##  Features
 
 - **Image Upload**: Upload your favorite photos.
 - **Gallery View**: See all uploaded images in a nice grid.
 - **DevOps Magic**: Fully automated CI/CD pipeline using Jenkins.
 
-## 🛠️ How to Run Locally
+##  How to Run Locally
 
 If you want to play around with the code on your machine:
 
@@ -30,7 +30,7 @@ If you want to play around with the code on your machine:
     ```
     Then open your browser at `http://localhost:3000`.
 
-## 🤖 The DevOps Pipeline (Jenkins)
+##  The DevOps Pipeline (Jenkins)
 
 I've set up a **Jenkins pipeline** that does all the heavy lifting automatically whenever I push code:
 
@@ -44,14 +44,14 @@ I've set up a **Jenkins pipeline** that does all the heavy lifting automatically
 ## 🌐 Live Demo
 
 Check out the live application here:
-👉 [https://gallery-ian.onrender.com/](https://gallery-ian.onrender.com/)
+-> [https://gallery-ian.onrender.com/](https://gallery-ian.onrender.com/)
 
-## ✅ Milestones Completed
+##  Milestones Completed
 
 - **Milestone 1**: Project Setup
 - **Milestone 2**: Basic Pipeline (Build & Deploy)
 - **Milestone 3**: Automated Tests & Email Alerts
-- **Milestone 4**: Slack Integration & Final Polish
+- **Milestone 4**: Slack Integration 
 
 ---
 *Built by Ian Maina*
