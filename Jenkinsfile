@@ -52,12 +52,19 @@ pipeline {
             }
             post {
                 success {
+                    // Send Slack notification on successful deployment
                     slackSend(
                         color: 'good',
                         message: "Deployment Successful! Build ID: ${env.BUILD_ID}\nLive URL: https://gallery-ian.onrender.com/"
                     )
                 }
-            }
+                failure {
+                    // Optional: Add a failure notification if needed
+                    slackSend(
+                        color: 'danger',
+                        message: "Deployment Failed! Build ID: ${env.BUILD_ID}"
+                    )
+                }
         }
     }
 }
