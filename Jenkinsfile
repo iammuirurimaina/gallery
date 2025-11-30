@@ -10,11 +10,18 @@ pipeline {
             }
         }
 
-
+        stage('Verify Environment') {
+            steps {
+                //Checking if Node.js and npm are installed
+                echo 'Checking Node.js and npm versions'
+                sh 'node --version'
+                sh 'npm --version'
+            }
+        }
 
         stage('Install Dependencies') {
             steps {
-                // Install dependencies
+                //Install dependencies
                 echo 'Installing dependencies...'
                 sh 'npm install'
             }
