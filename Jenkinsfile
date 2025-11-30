@@ -12,7 +12,6 @@ pipeline {
 
         stage('Verify Environment') {
             steps {
-                //Checking if Node.js and npm are installed
                 echo 'Checking Node.js and npm versions'
                 sh 'node --version'
                 sh 'npm --version'
@@ -22,8 +21,19 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 //Install dependencies
-                echo 'Installing dependencies...'
+               echo 'Installing dependencies...'
                 sh 'npm install'
+            }
+        }
+
+        stage('Deploy to Render') {
+            steps {
+                echo 'Deploying to Render...'
+                
+                // Check if website is online
+                echo 'Checking if website is online...'
+                sh 'curl -I https://gallery-ian.onrender.com/'
+                echo 'Website is live!'
             }
         }
     }
