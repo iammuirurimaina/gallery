@@ -53,13 +53,25 @@ pipeline {
 
         }
     }
-             post {
-                success {
-                    //send slack notification on success
-                    slackSend(
-                        color: 'good',
-                        message: "Deployment Successful! Build ID: ${env.BUILD_ID}\nLive URL: https://gallery-ian.onrender.com/"
-                    )
-                }
+post {
+        //post to slck channel after every build
+        always {
+            def buildStatus = currentBuild.result
+            def slackColor = 'good'
+            def messageText = "Build ${env.BUILD_NUMBER} (${buildStatus}) - Live URL: https://gallery-ian.onrender.com/"
+
+            if (buildStatus == 'FAILURE') {
+                slackColor = 'danger'
+                messageText = "Deployment FAILED! Build ${env.BUILD_NUMBER} (${buildStatus})"
+            } else if (buildStatus == 'UNSTABLE') {
+                slackColor = 'warning'
             }
+
+            slackSend(
+                channel: 'ian_ip1',
+                color: slackColor,
+                message: messageText
+            )
+        }
+    }
 }
