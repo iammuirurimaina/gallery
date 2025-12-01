@@ -50,7 +50,10 @@ pipeline {
                 sh 'curl -I https://gallery-ian.onrender.com/'
                 echo 'Website is live!'
             }
-            post {
+
+        }
+    }
+             post {
                 success {
                     //send slack notification on success
                     slackSend(
@@ -59,6 +62,4 @@ pipeline {
                     )
                 }
             }
-        }
-    }
 }
