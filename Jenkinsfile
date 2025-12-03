@@ -78,25 +78,27 @@ pipeline {
 
         }
     }
-post {
-        //post to slck channel after every build
+    post {
+        //post to slack channel
         always {
-            def buildStatus = currentBuild.result
-            def slackColor = 'good'
-            def messageText = "Build ${env.BUILD_NUMBER} (${buildStatus}) - Live URL: https://gallery-ian.onrender.com/"
+            script {
+                def buildStatus = currentBuild.result
+                def slackColor = 'good'
+                def messageText = "Build ${env.BUILD_NUMBER} (${buildStatus}) - Live URL: https://gallery-ian.onrender.com/"
 
-            if (buildStatus == 'FAILURE') {
-                slackColor = 'danger'
-                messageText = "Deployment FAILED! Build ${env.BUILD_NUMBER} (${buildStatus})"
-            } else if (buildStatus == 'UNSTABLE') {
-                slackColor = 'warning'
+                if (buildStatus == 'FAILURE') {
+                    slackColor = 'danger'
+                    messageText = "Deployment FAILED! Build ${env.BUILD_NUMBER} (${buildStatus})"
+                } else if (buildStatus == 'UNSTABLE') {
+                    slackColor = 'warning'
+                }
+
+                slackSend(
+                    channel: 'ian_ip1',
+                    color: slackColor,
+                    message: messageText
+                )
             }
-
-            slackSend(
-                channel: 'ian_ip1',
-                color: slackColor,
-                message: messageText
-            )
         }
     }
 }
