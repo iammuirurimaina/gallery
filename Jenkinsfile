@@ -70,7 +70,7 @@ pipeline {
             steps {
                 echo 'Deploying to Render...'
                 
-                // Check if website is online
+                // Check if website is online 
                 echo 'Checking if website is online...'
                 sh 'curl -I https://gallery-ian.onrender.com/'
                 echo 'Website is live!'
