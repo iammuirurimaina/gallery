@@ -1,5 +1,6 @@
 pipeline {
     agent any
+    // Define the email recipient
 
     environment {
         EMAIL_RECIPIENT = 'ian.maina@student.moringaschool.com'
