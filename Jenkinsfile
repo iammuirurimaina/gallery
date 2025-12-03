@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    environment {
+        EMAIL_RECIPIENT = 'ian.maina@student.moringaschool.com'
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -21,7 +25,7 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 //Install dependencies
-               echo 'Installing dependencies...'
+                echo 'Installing dependencies...'
                 sh 'npm install'
             }
         }
@@ -33,12 +37,33 @@ pipeline {
                 sh 'npm test'
             }
             post {
-                failure {
-                    echo 'Tests failed! Sending email notification...'
-                    mail to: 'ian.maina@student.moringaschool.com',
-                         subject: "Test Failed"
+                success {
+                    emailext attachLog: true,
+                        body: """
+                            <p>EXECUTED: Job <b>'${env.JOB_NAME}:${env.BUILD_NUMBER}'</b></p>
+                            <p>
+                                View console output at
+                                <a href='${env.BUILD_URL}'>${env.JOB_NAME}:${env.BUILD_NUMBER}</a>
+                            </p>
+                            <p><i>(Build log is attached.)</i></p>
+                        """,
+                        subject: "Status: 'SUCCESS' - Job '${env.JOB_NAME}:${env.BUILD_NUMBER}'",
+                        to: "${env.EMAIL_RECIPIENT}"
                 }
-            }
+                failure {
+                    emailext attachLog: true,
+                        body: """
+                            <p>EXECUTED: Job <b>'${env.JOB_NAME}:${env.BUILD_NUMBER}'</b></p>
+                            <p>
+                                View console output at
+                                <a href='${env.BUILD_URL}'>${env.JOB_NAME}:${env.BUILD_NUMBER}</a>
+                            </p>
+                            <p><i>(Build log is attached.)</i></p>
+                        """,
+                        subject: "Status: FAILURE - Job '${env.JOB_NAME}:${env.BUILD_NUMBER}'",
+                        to: "${env.EMAIL_RECIPIENT}"
+                }
+            }            
         }
 
         stage('Deploy to Render') {
