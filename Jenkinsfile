@@ -45,34 +45,34 @@ pipeline {
                 echo 'Running tests...'
                 sh 'npm test'
             }
-            post {
-                success {
-                    emailext attachLog: true,
-                        body: """
-                            <p>EXECUTED: Job <b>'${env.JOB_NAME}:${env.BUILD_NUMBER}'</b></p>
-                            <p>
-                                View console output at
-                                <a href='${env.BUILD_URL}'>${env.JOB_NAME}:${env.BUILD_NUMBER}</a>
-                            </p>
-                            <p><i>(Build log is attached.)</i></p>
-                        """,
-                        subject: "Status: 'SUCCESS' - Job '${env.JOB_NAME}:${env.BUILD_NUMBER}'",
-                        to: "${env.EMAIL_RECIPIENT}"
-                }
-                failure {
-                    emailext attachLog: true,
-                        body: """
-                            <p>EXECUTED: Job <b>'${env.JOB_NAME}:${env.BUILD_NUMBER}'</b></p>
-                            <p>
-                                View console output at
-                                <a href='${env.BUILD_URL}'>${env.JOB_NAME}:${env.BUILD_NUMBER}</a>
-                            </p>
-                            <p><i>(Build log is attached.)</i></p>
-                        """,
-                        subject: "Status: FAILURE - Job '${env.JOB_NAME}:${env.BUILD_NUMBER}'",
-                        to: "${env.EMAIL_RECIPIENT}"
-                }
-            }
+            // post {
+            //     success {
+            //         emailext attachLog: true,
+            //             body: """
+            //                 <p>EXECUTED: Job <b>'${env.JOB_NAME}:${env.BUILD_NUMBER}'</b></p>
+            //                 <p>
+            //                     View console output at
+            //                     <a href='${env.BUILD_URL}'>${env.JOB_NAME}:${env.BUILD_NUMBER}</a>
+            //                 </p>
+            //                 <p><i>(Build log is attached.)</i></p>
+            //             """,
+            //             subject: "Status: 'SUCCESS' - Job '${env.JOB_NAME}:${env.BUILD_NUMBER}'",
+            //             to: "${env.EMAIL_RECIPIENT}"
+            //     }
+            //     failure {
+            //         emailext attachLog: true,
+            //             body: """
+            //                 <p>EXECUTED: Job <b>'${env.JOB_NAME}:${env.BUILD_NUMBER}'</b></p>
+            //                 <p>
+            //                     View console output at
+            //                     <a href='${env.BUILD_URL}'>${env.JOB_NAME}:${env.BUILD_NUMBER}</a>
+            //                 </p>
+            //                 <p><i>(Build log is attached.)</i></p>
+            //             """,
+            //             subject: "Status: FAILURE - Job '${env.JOB_NAME}:${env.BUILD_NUMBER}'",
+            //             to: "${env.EMAIL_RECIPIENT}"
+            //     }
+            // }
         }
 
         stage('Deploy Verification') {
@@ -103,7 +103,9 @@ pipeline {
                     color: slackColor,
                     message: messageText
                 )
-                success {
+            }
+        }
+        success {
             emailext attachLog: true,
                 body: """
                     <p>EXECUTED: Job <b>'${env.JOB_NAME}:${env.BUILD_NUMBER}'</b></p>
@@ -128,8 +130,6 @@ pipeline {
                 """,
                 subject: "Status: FAILURE - Job '${env.JOB_NAME}:${env.BUILD_NUMBER}'",
                 to: "${env.EMAIL_RECIPIENT}"
-        }
-            }
         }
     }
 }
