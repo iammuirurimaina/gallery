@@ -18,6 +18,8 @@ pipeline {
         }
 
         stage('Verify Environment') {
+            //test node version
+        
             steps {
                 echo 'Checking Node.js and npm versions'
                 sh 'node --version'
