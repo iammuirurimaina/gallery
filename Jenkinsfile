@@ -105,28 +105,36 @@ pipeline {
                 )
             }
         }
-        success {
+                success {
             mail to: "${env.EMAIL_RECIPIENT}",
                  subject: "Status: 'SUCCESS' - Job '${env.JOB_NAME}:${env.BUILD_NUMBER}'",
                  body: """
-                     <p>EXECUTED: Job <b>'${env.JOB_NAME}:${env.BUILD_NUMBER}'</b></p>
-                     <p>
-                         View console output at
-                         <a href='${env.BUILD_URL}'>${env.JOB_NAME}:${env.BUILD_NUMBER}</a>
-                     </p>
-                     <p>Build Status: SUCCESS</p>
+                     <html>
+                         <body style="font-family: Arial, sans-serif;">
+                             <h2 style="color: green;">Build Successful! ✓</h2>
+                             <p><b>Job Name:</b> ${env.JOB_NAME}</p>
+                             <p><b>Build Number:</b> ${env.BUILD_NUMBER}</p>
+                             <p><b>Build Status:</b> <span style="color: green; font-weight: bold;">SUCCESS</span></p>
+                             <p><b>Deployment URL:</b> <a href="${env.DEPLOYMENT_URL}">${env.DEPLOYMENT_URL}</a></p>
+                             <p><a href="${env.BUILD_URL}">View Console Output</a></p>
+                         </body>
+                     </html>
                  """
         }
         failure {
             mail to: "${env.EMAIL_RECIPIENT}",
                  subject: "Status: FAILURE - Job '${env.JOB_NAME}:${env.BUILD_NUMBER}'",
                  body: """
-                     <p>EXECUTED: Job <b>'${env.JOB_NAME}:${env.BUILD_NUMBER}'</b></p>
-                     <p>
-                         View console output at
-                         <a href='${env.BUILD_URL}'>${env.JOB_NAME}:${env.BUILD_NUMBER}</a>
-                     </p>
-                     <p>Build Status: FAILURE</p>
+                     <html>
+                         <body style="font-family: Arial, sans-serif;">
+                             <h2 style="color: red;">Build Failed! ✗</h2>
+                             <p><b>Job Name:</b> ${env.JOB_NAME}</p>
+                             <p><b>Build Number:</b> ${env.BUILD_NUMBER}</p>
+                             <p><b>Build Status:</b> <span style="color: red; font-weight: bold;">FAILURE</span></p>
+                             <p><b>Deployment URL:</b> <a href="${env.DEPLOYMENT_URL}">${env.DEPLOYMENT_URL}</a></p>
+                             <p><a href="${env.BUILD_URL}">View Console Output</a></p>
+                         </body>
+                     </html>
                  """
         }
     }
