@@ -131,5 +131,5 @@ pipeline {
                 subject: "Status: FAILURE - Job '${env.JOB_NAME}:${env.BUILD_NUMBER}'",
                 to: "${env.EMAIL_RECIPIENT}"
         }
-    }
+    }//test
 }
