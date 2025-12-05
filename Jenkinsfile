@@ -1,5 +1,6 @@
 pipeline {
     agent any
+    tools {nodejs "nodejs"}
 
     environment {
         EMAIL_RECIPIENT = 'ian.maina@student.moringaschool.com'
