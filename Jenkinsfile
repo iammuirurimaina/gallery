@@ -131,5 +131,6 @@ pipeline {
                      View Console Output: ${env.BUILD_URL}
                  """
         }
+    }
 }
 
