@@ -7,11 +7,11 @@ pipeline {
             steps {
                 git branch: 'main', url: 'https://github.com/iammuirurimaina/gallery.git'}
         }
-        // stage('Build') {
-        //     steps {
-        //         echo 'Building...'
-        //     }
-        // }
+        stage('Build') {
+            steps {
+                echo 'Building...'
+            }
+        }
         // stage('Test') {
         //     steps {
         //         echo 'Testing...'
